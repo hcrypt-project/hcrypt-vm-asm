@@ -1,0 +1,7 @@
+INITAC 0
+START 0
+
+start	L 1
+		CLC
+		ADD 2
+end		J end 
