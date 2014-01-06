@@ -44,20 +44,32 @@ mpz_t cipher;
                 int i,j;
                 int sourceline=0;
 
-                printf("argc=%d\n",argc);
+                char skout[500],pkout[500];
 
-                if(argc!=4)
+                //printf("argc=%d\n",argc);
+
+                if(argc!=3)
                 {
-                        printf("usage: %s <in> <out> <publickey>\n",argv[0]);
+                        printf("usage: %s <in> <out>\n",argv[0]);
                         exit(0);
                 }
+
+                sprintf(skout,"%s.hcrypt_sk",argv[2]);
+                sprintf(pkout,"%s.hcrypt_pk",argv[2]);
+
                 fhe_pk_init(pk);
                 fhe_sk_init(sk);
+
                // fhe_pk_loadkey(pk,argv[3]);
                 //fhe_pk_print(pk);
 
                 puts("keygen");
                 fhe_keygen(pk,sk);
+                fhe_pk_store(pk,pkout);
+                fhe_sk_store(sk,skout);
+
+                printf("wrote secret key: %s\n",skout);
+                printf("wrote public key: %s\n",pkout);
 
                 symbols=NULL;
                 alloc=&symbols;
@@ -397,6 +409,9 @@ mpz_t cipher;
                         //printf(".\n");
                 }
 
+                printf("---- reference table start ----\n");
+                printlist(symbols);
+                printf("---- reference table end   ----\n");
                 //XXX
                 fclose(w);
                 fclose(r);

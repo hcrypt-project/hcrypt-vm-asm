@@ -1,7 +1,7 @@
 INITAC 0
-START 0
+INITPC 0
 
-start	L 1
+start	L start
 		CLC
 		ADD 2
 end		J end 
